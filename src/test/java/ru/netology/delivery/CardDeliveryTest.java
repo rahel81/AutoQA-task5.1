@@ -80,19 +80,20 @@ public class CardDeliveryTest {
                 .$(withText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
-   // @Test // Форма заявки пропускает неправильный номер телефона, тест не проходит
-   // void shouldSendInvalidPhone() {
-   //     $("[data-test-id='city'] input").setValue(CardDeliveryGenerator.getCity());
-   //     SelenideElement data = $("[data-test-id=date]");
-   //     $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-   //     data.$("[placeholder]").setValue(CardDeliveryGenerator.getData(5));
-   //     $("[data-test-id=name] input").setValue(CardDeliveryGenerator.getName());
-   //     $("[data-test-id=phone] input").setValue("+7911040873");
-    //    $("[data-test-id=agreement]").click();
-   //     $$("[type=button]").find(text("Запланировать")).click();
-   //     $("[data-test-id=phone].input_invalid .input__sub").waitUntil(visible, 15000)
-   //             .$(withText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
-   // }
+    @Test
+    void shouldSendInvalidPhone() {
+        $("[data-test-id='city'] input").setValue(CardDeliveryGenerator.getCity());
+        SelenideElement data = $("[data-test-id=date]");
+        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        data.$("[placeholder]").setValue(CardDeliveryGenerator.getData(5));
+        $("[data-test-id=name] input").setValue(CardDeliveryGenerator.getName());
+        $("[data-test-id=phone] input").setValue(CardDeliveryGenerator.getInvalidPhone());
+        $("[data-test-id=agreement]").click();
+        $$("[type=button]").find(text("Запланировать")).click();
+        $("[data-test-id=phone].input_invalid .input__sub").waitUntil(visible, 15000)
+                .$(withText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+    }
+
 
     @Test
     void shouldSendInvalidCheckbox() {
